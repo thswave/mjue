@@ -1,0 +1,15 @@
+<div class="assessment">
+  <h4>
+    <%= link_to assessment.lecture.title, assessment.lecture %>
+    <small>[<%= assessment.lecture.provider %>]</small>
+  </h4>
+  <p>
+    <small> <%= c(assessment.content, :user_id => assessment.user_id) %> </small>
+  </p>
+</div>
+
+<div class="alert alert-info">
+  강의총점 <b><%= s(assessment.overall_score, :user_id => assessment.user_id) %></b> |
+  수업만족 <b><%= s(assessment.presentation_score, :user_id => assessment.user_id) %></b> |
+  과제만족 <b><%= s(assessment.workload_score, :user_id => assessment.user_id) %></b>
+</div>

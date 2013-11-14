@@ -1,0 +1,41 @@
+<div class="standings_container">
+  <div class="title_container">
+    <%= image_tag "standings_title.png" %>
+  </div>
+  <div class="round_container">
+    <table class="standings_table">
+      <tbody>
+      <tr>
+        <th><%= image_tag "gold_medal.png" %></th>
+        <td>
+          <% if @lectures[0] %>
+            <%= link_to @lectures[0].provider + "\n" + "(" + @lectures[0].title + ")", @lectures[0] %>
+        <% else %>
+            아직 등록되지 않았습니다.
+        <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= image_tag "silver_medal.png" %></th>
+        <td>
+          <% if @lectures[1] %>
+            <%= link_to @lectures[1].provider + "\n" + "(" + @lectures[1].title + ")", @lectures[1] %>
+          <% else %>
+              아직 등록되지 않았습니다.
+        <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th><%= image_tag "bronze_medal.png" %></th>
+        <td>
+          <% if @lectures[2] %>
+            <%= link_to @lectures[2].provider + "\n" + "(" + @lectures[2].title + ")", @lectures[2] %>
+        <% else %>
+            아직 등록되지 않았습니다.
+        <% end %>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

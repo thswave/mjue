@@ -1,0 +1,22 @@
+<% if @result.empty? %>
+  검색 결과가 없습니다.
+<% else %>
+<div class="row">
+  <% @result.each_with_index do |lecture, i| %>
+    <div class="span3">
+    <%= render partial: 'shared/lecture', locals: { lecture: lecture } %>
+    </div>
+    <% if i % 3 == 2 %>
+      <div class="clearfix"></div>
+    <% end %>
+  <% end %>
+  <div class="clearfix"></div>
+  <%= will_paginate @result, :params => { :query => @query } %>
+
+  <% if current_user.nil? %>
+    <%= render :partial => 'shared/not_registered_yet_modal' %>
+  <% end %>
+</div>
+<% end %> 
+
+<div style="clear:both;"></div>

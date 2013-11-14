@@ -1,0 +1,77 @@
+<div class="lecture_info_container">
+  <div class="well">
+    <div class="pull-left">
+      <%= image_tag 'prof.jpg' %>
+    </div>
+    <div class="pull-left lecture_info">
+      <h2><%=@lecture.title %> / <%= @lecture.provider %></h2>
+      <p class="pull-left">
+      <b>개설학과 </b> <%= @lecture.department %><br/>
+      <b>학년 </b> <%= @lecture.level %><br/>
+      <b>학점 </b> <%= @lecture.credit %>
+    </p>
+      <div class="scores pull-left">
+        <% if current_user.finished_registration? %>
+          <div class="pull-left"><b>강의총점 &nbsp;</b></div>
+        <div class="pull-left"><%= star_rating_div(@lecture.overall_score, true, 'overall_score') %></div>
+        <div class="clearfix"></div>
+        <div class="pull-left"><b>수업만족 &nbsp;</b></div>
+        <div class="pull-left"><%= star_rating_div(@lecture.presentation_score, true, 'presentation_score') %></div>
+        <div class="clearfix"></div>
+        <div class="pull-left"><b>학점만족 &nbsp;</b></div>
+        <div class="pull-left"><%= star_rating_div(@lecture.grading_score, true, 'grading_score') %></div>
+        <div class="clearfix"></div>
+      <% else %>
+          <b><%= I18n.t 'assessments.blinded_content' %></b>
+      <% end %>
+
+      </div>
+      <div class="clearfix"></div>
+      <div class="pull-right">
+        <a href="#assessment_modal" role="button" class="btn btn-primary" data-toggle="modal">평가하기</a>
+        <%= render partial: 'shared/new_assessment_form', locals: { assessment: @assessment, lecture: @lecture } %>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+  </div> 
+</div>
+<div class="assessments_container">
+  <% @assessments.each_with_index do |assessment, i| %>
+    <% if current_user.finished_registration? %>
+        <% if i == 0 %>
+          <span class="label label-info">*** 베스트 강의평 ***</span>
+        <% end %>
+ 
+      <div class="assessment <%= 'assessment_best' if i == 0 %> well well-small <%= assessment.user_id == current_user.id ? 'mine' : '' %>">
+     <div class="pull-left"><b>총점 &nbsp;</b></div>
+      <div class="pull-left"><%= star_rating_div(assessment.overall_score, true, 'overall_score') %></div>
+      <div class="pull-left"><b>수업만족 &nbsp;</b></div>
+      <div class="pull-left"><%= star_rating_div(assessment.presentation_score, true, 'overall_score') %></div>
+      <div class="pull-left"><b>학점만족 &nbsp;</b></div>
+      <div class="pull-left"><%= star_rating_div(assessment.grading_score, true, 'overall_score') %></div>
+      <%= form_for [assessment, Vote.new(positive: false)], html: { class: 'pull-right form-inline vote_form' } do |f| %>
+        <%= f.submit '비추 ' + assessment.votes.negative.count.to_s, class: 'btn btn-small btn-danger negative' %>
+      <% end %>
+      <%= form_for [assessment, Vote.new(positive: true)], html: { class: 'pull-right form-inline vote_form' } do |f| %>
+        <%= f.hidden_field :positive %>
+        <%= f.submit '추천 ' + assessment.votes.positive.count.to_s, class: 'btn btn-small btn-success positive' %>
+      <% end %>
+      <div class="clearfix"></div>
+      <div class="content">
+        <%= c(assessment.content, :user_id => assessment.user_id) %>
+      </div>
+      <% if assessment.user_id == current_user.id %>
+        <div class="pull-right">
+          <%= form_for assessment, method: 'post', class: 'form-inline' do |f| %>
+            <%= hidden_field_tag :_method, 'delete' %>
+            <%= f.submit '삭제하기', class: 'btn btn-link' %>
+          <% end %>
+        </div>
+        <div class="clearfix"></div>
+      <% end %>
+    </div>
+    <% else %>
+      <%= I18n.t 'assessments.blinded_content' %>
+    <% end %>
+  <% end -%>
+</div>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>명강의 : 명지대학교 강의평가</title>
+<%= stylesheet_link_tag 'application' %>
+<%= javascript_include_tag 'application' %>
+<%= stylesheet_link_tag '/jqui-theme/jquery-ui-1.9.1.custom.min.css' %>
+<%= csrf_meta_tags %>
+</head>
+<body>
+<script type="text/javascript">
+$(function(){
+  <% if notice || alert %>
+      humane.log('<%= notice || alert %>');
+  <% end %>
+});
+</script>
+
+<div id="lecture_container">
+  <div class="top_container container">
+      <a class="main_logo" href="/"></a>
+      <div class="clearfix"></div>
+      <div class="search_bar">
+        <%= form_tag search_lectures_path, method: 'get', class: 'form-search' do %>
+          <%= text_field_tag :query, @query, class: 'search-query', placeholder: '강의명, 교수명으로 검색하세요' %>
+          <%= submit_tag '검색 ', class: 'btn btn-search btn-inverse' %>
+      <% end %>
+      </div>
+      <div class="clearfix"></div>
+  </div>
+  <div class="center_container container">
+    <div class="row">
+      <div class="main_content span9">
+        <%= yield %>
+      </div>
+      <div class="side_bar span3">
+        <div class="padding">
+          <% if current_user %>
+        <div class="my_info">
+          <span class="em_text"><%= current_user.nickname %></span>님의 강의평가 <strong>총 <%= current_user.assessments.count %>개</strong>
+          <br/>
+          <%= link_to '[로그아웃]', destroy_user_session_path, class: 'pull-right' %>
+          <div class="clearfix"></div>
+        </div>
+        
+        <br/>
+        <%= render :partial => 'shared/standings' -%>
+      <% else %>
+      <%= button_to '가입하기!', new_registration_path, method: 'get', class: 'btn btn-primary btn-large btn_join' -%>
+      <% end %>
+        <br/>
+        <div class="contact">
+        </div>
+        <br/>
+        <div class="status">
+     가입한 학생수 <span class="red_text em_text"><%= User.count %></span>명<br/>
+     등록된 강의평 <span class="red_text em_text"><%= Assessment.count %></span>개<br/><br/>
+    <b><a href="https://www.facebook.com/mju.klassmate"> 명강의 페이스북</a></b>
+        </div>
+      </div>
+    </div>
+      <div class="clearfix">
+      </div>
+    </div>
+  </div>
+</div>
+<div class="clearfix"></div>
+
+</body>
+</html>

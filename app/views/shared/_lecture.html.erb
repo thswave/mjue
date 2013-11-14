@@ -1,0 +1,24 @@
+<div class="lecture_small">
+  <div class="pull-left photo">
+    <%= image_tag "prof.jpg"%>
+  </div>
+  <div class="pull-right content">
+    <span class="em_text"><%= link_to lecture.title + " / " + lecture.provider, lecture_path(lecture) %></span>
+    <br/>
+    <% if current_user && current_user.finished_registration? %>
+      <div class="pull-left"><b>강의평점</b></div>
+    <div class="pull-left"><%= star_rating_div(lecture.overall_score, true, 'overall_score') %></div>
+    <div class="clearfix"></div>
+    <div class="pull-left"><b>수업만족</b></div>
+    <div class="pull-left"><%= star_rating_div(lecture.presentation_score, true, 'presentation_score') %></div>
+    <div class="clearfix"></div>
+    <div class="pull-left"><b>학점만족</b></div>
+    <div class="pull-left"><%= star_rating_div(lecture.grading_score, true, 'grading_score') %></div>
+    <div class="clearfix"></div>
+  <% else %>
+    <%= I18n.t 'assessments.blinded_content' %>
+  <% end %>
+  </div>
+  <div class="clearfix"></div>
+</div>
+

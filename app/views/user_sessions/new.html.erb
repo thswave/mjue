@@ -1,0 +1,28 @@
+<div id="entrance_container">
+  <div class="top_container container">
+    <strong>명강의</strong>는 명지대학생만을 위한 강의평가 사이트입니다.
+  </div>
+
+  <div class="center_container container">
+    <div class="main_logo">
+    </div>
+    <div class="clearfix"></div>
+     <div class="search_bar">
+      <%= form_tag search_lectures_path, method: 'get', class: 'form-search' do %>
+        <%= text_field_tag :query, @query, class: 'search-query', placeholder: '강의명, 교수명으로 검색하세요' %>
+        <%= submit_tag '검색', class: 'btn btn-search btn-inverse' %>
+      <% end %>
+    </div>
+    <div class="login_form_container">
+      <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :html => { :class => 'form-inline' }) do |f| %>
+        <%= f.label :username, 'ID', class: 'control-label' %>
+      <%= f.text_field :username, class: 'text_input input-small', placeholder: '' %>
+      <%= f.label :password, 'pw', class: 'control-label' %>
+      <%= f.password_field :password, class: 'text_input input-small', placeholder: '' %>
+      <%= f.submit '로그인', class: 'btn_login' %>
+    <% end %>
+      <%= button_to '회원가입', new_registration_path, method: 'get', class: 'btn_join' -%>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+</div>

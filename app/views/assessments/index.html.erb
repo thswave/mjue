@@ -1,0 +1,38 @@
+<script>
+$(window).load(function() {
+  $('#event_modal').modal({
+    backdrop: 'static',
+    keyboard: false
+  })
+
+  $("#event_modal").modal('show');
+});
+</script>
+
+<div id="main_container">
+  <div class="top_container container">
+    <strong>명강의</strong>는 명지대학생만을 위한 강의평가 사이트입니다.
+  </div>
+  <div class="center_container container">
+    <div class="main_logo">
+    </div>
+    <div class="clearfix">
+    </div>
+    <div class="search_bar">
+      <%= form_tag search_lectures_path, method: 'get', class: 'form-search' do %>
+        <%= text_field_tag :query, @query, class: 'search-query', placeholder: '강의명, 교수명으로 검색하세요' %>
+      <%= submit_tag '검색', class: 'btn btn-search btn-inverse' %>
+    <% end %>
+    </div>
+    <div class="clearfix">
+    </div>
+    <div class="welcome">
+      <%= current_user.username %>님 환영합니다. <small><%= link_to '[로그아웃]', destroy_user_session_path %></small>
+    </div>
+    <div class="visit">
+      현재 명강의는 <span class="red_text em_text"><%= User.count %></span>명의 명지대학생들이 이용하고 있으며 <%= current_user.username %>님은 <span class="red_text em_text"><%= current_user.id %></span>번째 회원님입니다.
+    </div>
+  </div>
+</div>
+<% end %>
+

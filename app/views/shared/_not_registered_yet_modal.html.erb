@@ -1,0 +1,16 @@
+
+<script>
+$(window).load(function(){
+        $('#not_registered_yet_modal').modal('show');
+    });
+</script>
+
+<div id="not_registered_yet_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-body">
+    <h3>
+      명강의를 이용하려면 가입을 하셔야합니다.
+    </h3>
+      <%= button_to '가입하기!', new_registration_path, method: 'get', class: 'btn btn-primary btn-large btn_join' -%>
+  </div>
+</div>
+
