@@ -1,0 +1,57 @@
+<div id="entrance_container">
+  <div class="center_container">
+    <div class="main_logo">
+    </div>
+    <div class="clearfix"></div>
+
+    <div class="notice_container">
+      <ul>
+        <li>아이디와 학번을 입력해주세요. </li>
+        <li>회원님의 개인정보는 안전하게 지켜드립니다.</li>
+      </ul>
+    </div>
+
+    <div class="signup_form_container">
+      <%= form_for @user, url: registrations_update_path, html: { class: 'form-horizontal' } do |f| %>
+        <% unless @user.errors.empty? %>
+          <div id="validation-error-container">
+            <%= @user.errors.full_messages.join('<br/>').html_safe %>
+        </div>
+    <% end %>
+      <div class="control-group">
+        <%= f.label :username, '아이디', class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :username, class: 'input', placeholder: '' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :realname, '실명', class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :realname, class: 'input', placeholder: '' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :student_id, '학번', class: 'control-label' %>
+        <div class="controls">
+          <%= f.text_field :student_id, class: 'input', placeholder: '' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :password, '비밀번호', class: 'control-label' %>
+        <div class="controls">
+          <%= f.password_field :password, class: 'input', placeholder: '' %>
+        </div>
+      </div>
+      <div class="control-group">
+        <%= f.label :password_confirmation, '비밀번호 확인', class: 'control-label' %>
+        <div class="controls">
+          <%= f.password_field :password_confirmation, class: 'input', placeholder: '' %>
+        </div>
+      </div>
+      
+       <%= f.submit '비밀번호 수정', class: 'btn_modify' %>
+     	
+    <% end %>
+    </div>
+  </div>
+</div>

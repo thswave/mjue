@@ -1,7 +1,8 @@
 EwhaNote::Application.routes.draw do
   devise_for :users, controllers: { sessions: 'user_sessions' }
 
-
+  match 'registrations/edit' => 'registrations#edit'
+  match 'registrations/update' => 'registrations#update'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
