@@ -21,8 +21,10 @@
       <%= f.password_field :password, class: 'text_input input-small', placeholder: '' %>
       <%= f.submit '로그인', class: 'btn_login' %>
     <% end %>
+    </div>
+    <div class="restration_container">
       <%= button_to '회원가입', new_registration_path, method: 'get', class: 'btn_join' -%>
-      <%= button_to '비밀번호찾기', new_registration_path, method: 'get', class: 'btn_join' -%>
+      <%= button_to 'ID/비밀번호 찾기', registrations_edit_path, method: 'get', class: 'btn_join' -%>
 
     </div>
     <div class="clearfix"></div>
